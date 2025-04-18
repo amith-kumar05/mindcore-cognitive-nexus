@@ -37,18 +37,7 @@ const ChatBot = () => {
   };
   return <>
       {/* Chat button */}
-      <motion.button initial={{
-      scale: 0,
-      opacity: 0
-    }} animate={{
-      scale: 1,
-      opacity: 1
-    }} transition={{
-      delay: 1,
-      duration: 0.3
-    }} onClick={() => setIsOpen(true)} className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-mindcore-accent text-black flex items-center justify-center shadow-neon">
-        
-      </motion.button>
+      
       
       {/* Chat window */}
       <AnimatePresence>
