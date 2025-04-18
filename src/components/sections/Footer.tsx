@@ -1,4 +1,3 @@
-
 import { Github, Linkedin, Twitter, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
@@ -58,6 +57,56 @@ const Footer = () => {
   return (
     <footer className="relative pt-20 pb-10 overflow-hidden border-t border-mindcore-accent/10">
       <div className="container mx-auto px-4 md:px-6">
+        {/* Contact Form */}
+        <div className="max-w-2xl mx-auto mb-20">
+          <div className="text-center mb-10">
+            <h2 className="font-orbitron text-2xl font-bold text-gradient mb-4">
+              Contact Us
+            </h2>
+            <p className="text-mindcore-text-muted">
+              Join us in shaping the future of cognitive computing
+            </p>
+          </div>
+          
+          <form className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <input 
+                  type="text" 
+                  placeholder="First Name" 
+                  className="terminal-input w-full"
+                  required
+                />
+              </div>
+              <div>
+                <input 
+                  type="text" 
+                  placeholder="Last Name" 
+                  className="terminal-input w-full"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div>
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                className="terminal-input w-full"
+                required
+              />
+            </div>
+            
+            <button 
+              type="submit" 
+              className="w-full neon-button py-3 font-orbitron"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        {/* Rest of the footer */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
           {/* Logo and Newsletter */}
           <div className="lg:col-span-2">

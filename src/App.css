@@ -18,3 +18,25 @@
 .text-shadow-lg {
   text-shadow: 0 0 15px rgba(0, 209, 255, 0.7), 0 0 30px rgba(0, 209, 255, 0.4);
 }
+
+/* Floating elements */
+.floating-element {
+  background: radial-gradient(circle at center, rgba(0, 209, 255, 0.1) 0%, rgba(0, 209, 255, 0) 70%);
+  mix-blend-mode: screen;
+}
+
+/* Enhanced terminal input */
+.terminal-input {
+  @apply bg-mindcore-dark/50 border border-mindcore-accent/20 text-mindcore-text rounded-md px-4 py-2;
+  @apply backdrop-blur-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-mindcore-accent/30 focus:border-mindcore-accent/30;
+  @apply transition-all duration-300;
+}
+
+/* Product card enhancements */
+.product-card {
+  @apply relative p-6 rounded-lg border border-mindcore-accent/10;
+  @apply bg-mindcore-dark/30 backdrop-blur-md;
+  @apply transition-all duration-300 hover:scale-105;
+  @apply flex flex-col h-full;
+}
