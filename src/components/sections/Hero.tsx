@@ -3,7 +3,27 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Terminal, Brain, AlertCircle } from 'lucide-react';
-import { NeuralNetwork, DataStream } from '../3d/NeuralScene';
+import { NeuralNetwork } from '../3d/NeuralScene';
+
+// This component will be used outside the Canvas
+const DataStream = ({ count = 20 }) => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {Array.from({ length: count }).map((_, i) => (
+        <div
+          key={i}
+          className="data-stream"
+          style={{
+            left: `${Math.random() * 100}%`,
+            height: `${Math.random() * 30 + 15}%`,
+            animationDuration: `${Math.random() * 4 + 4}s`,
+            animationDelay: `${Math.random() * 2}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Hero = () => {
   const [isCursorActive, setIsCursorActive] = useState(false);
@@ -40,7 +60,7 @@ const Hero = () => {
           </p>
         </motion.div>
 
-        {/* 3D Neural Network Visualization */}
+        {/* 3D Neural Network Visualization - Ensure only THREE objects inside Canvas */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

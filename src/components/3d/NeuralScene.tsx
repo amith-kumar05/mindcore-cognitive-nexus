@@ -128,48 +128,14 @@ export const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
   }
 
   return (
-    <div ref={ref} className="w-full h-full">
-      <group ref={groupRef}>
-        {neuronsData.map((neuron, index) => (
-          <Neuron 
-            key={index} 
-            position={neuron.position} 
-            connections={neuron.connections} 
-          />
-        ))}
-      </group>
-    </div>
-  );
-};
-
-interface DataStreamProps {
-  count?: number;
-}
-
-export const DataStream: React.FC<DataStreamProps> = ({ count = 15 }) => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="data-stream"
-          style={{
-            left: `${Math.random() * 100}%`,
-            height: `${Math.random() * 30 + 15}%`,
-            animationDuration: `${Math.random() * 4 + 4}s`,
-            animationDelay: `${Math.random() * 2}s`,
-          }}
+    <group ref={groupRef}>
+      {neuronsData.map((neuron, index) => (
+        <Neuron 
+          key={index} 
+          position={neuron.position} 
+          connections={neuron.connections} 
         />
       ))}
-    </div>
-  );
-};
-
-export const NeuralScene: React.FC = () => {
-  return (
-    <div className="relative w-full h-full">
-      <NeuralNetwork />
-      <DataStream />
-    </div>
+    </group>
   );
 };
