@@ -47,7 +47,7 @@ const Hero = () => {
           <h1 className="font-orbitron text-4xl md:text-6xl lg:text-7xl mb-4 bg-gradient-to-r from-mindcore-accent via-mindcore-accent2 to-mindcore-accent3 bg-clip-text text-transparent font-bold">
             MindCore Labs
           </h1>
-          <p className="text-xl text-mindcore-text/80 max-w-2xl mx-auto md:text-2xl font-normal">
+          <p className="text-xl text-mindcore-text/80 max-w-2xl mx-auto md:text-2xl font-semibold">
             Where Thought Meets Computation
           </p>
         </motion.div>
@@ -61,7 +61,7 @@ const Hero = () => {
         delay: 0.4
       }} className="flex flex-col md:flex-row items-center justify-center gap-6">
           <button className="neon-button group flex items-center gap-2">
-            <span className="relative z-10">Explore Our AI Suite</span>
+            <span className="relative z-10 font-bold">Explore Our AI Suite</span>
           </button>
           
           <a href="#about" className="text-mindcore-accent hover:text-mindcore-accent2 transition-all duration-300">
