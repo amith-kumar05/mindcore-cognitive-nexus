@@ -9,22 +9,15 @@ const Hero = () => {
       
       <div className="container relative z-10 px-4 md:px-6 mx-auto flex flex-col items-center">
         <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ 
-            scale: 1, 
-            opacity: 1,
-            y: [0, -20, 0],
-          }}
-          transition={{ 
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           className="mb-8"
         >
           <motion.div 
             className="p-8 rounded-full bg-mindcore-accent/10 backdrop-blur-sm"
             animate={{
+              y: [0, -15, 0],
               boxShadow: [
                 "0 0 20px rgba(0, 209, 255, 0.2)",
                 "0 0 40px rgba(0, 209, 255, 0.4)",
@@ -32,9 +25,16 @@ const Hero = () => {
               ]
             }}
             transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
+              y: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              },
+              boxShadow: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
             }}
           >
             <Brain className="w-20 h-20 text-mindcore-accent" />
