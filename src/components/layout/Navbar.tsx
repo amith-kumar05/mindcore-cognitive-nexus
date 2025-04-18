@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Brain, ChevronDown } from 'lucide-react';
+import { Menu, X, Brain, ChevronDown, Brain, Terminal, Database, MessageSquare, Mic, Heart } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '#', hasDropdown: false },
@@ -10,10 +10,34 @@ const navLinks = [
     href: '#products', 
     hasDropdown: true,
     dropdown: [
-      { name: 'MindLLM', href: '#' },
-      { name: 'MindRAG', href: '#' },
-      { name: 'CoreAgents', href: '#' },
-      { name: 'View All', href: '#products' }
+      { 
+        name: 'MindLLM',
+        description: 'Fine-tuned multilingual LLMs',
+        href: '#mindllm',
+        icon: <Brain className="w-5 h-5" />,
+        color: 'from-cyan-500/20 to-blue-500/20'
+      },
+      { 
+        name: 'MindRAG',
+        description: 'Modular RAG system with vector DB',
+        href: '#mindrag',
+        icon: <Database className="w-5 h-5" />,
+        color: 'from-green-500/20 to-emerald-500/20'
+      },
+      { 
+        name: 'CoreAgents',
+        description: 'Framework for AI agents',
+        href: '#coreagents',
+        icon: <Terminal className="w-5 h-5" />,
+        color: 'from-purple-500/20 to-indigo-500/20'
+      },
+      { 
+        name: 'NeuroWave',
+        description: 'Emotion-aware speech SDK',
+        href: '#neurowave',
+        icon: <Mic className="w-5 h-5" />,
+        color: 'from-blue-500/20 to-violet-500/20'
+      }
     ]
   },
   { name: 'Academy', href: '#academy', hasDropdown: false },
@@ -45,20 +69,26 @@ const Navbar = () => {
 
   return (
     <>
-      <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'py-2 bg-mindcore-darker/80 backdrop-blur-md shadow-md' : 'py-4 bg-transparent'
-        }`}
-      >
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'py-2 bg-mindcore-darker/80 backdrop-blur-md shadow-md' : 'py-4 bg-transparent'
+      }`}>
         <div className="container mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
-          <a 
-            href="#" 
-            className="flex items-center gap-2 font-orbitron font-bold text-xl text-white"
-          >
-            <div className="p-1.5 bg-mindcore-accent/10 rounded-md">
+          <a href="#" className="flex items-center gap-2 font-orbitron font-bold text-xl text-white">
+            <motion.div 
+              animate={{ 
+                y: [0, -4, 0],
+                scale: [1, 1.05, 1]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="p-1.5 bg-mindcore-accent/10 rounded-md"
+            >
               <Brain className="h-5 w-5 text-mindcore-accent" />
-            </div>
+            </motion.div>
             <span>MindCore</span>
           </a>
 
@@ -82,7 +112,7 @@ const Navbar = () => {
                   )}
                 </a>
                 
-                {/* Desktop Dropdown */}
+                {/* Enhanced Desktop Dropdown */}
                 {link.hasDropdown && (
                   <AnimatePresence>
                     {activeDropdown === link.name && (
@@ -91,15 +121,23 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-40 py-2 px-3 rounded-md shadow-lg bg-mindcore-dark border border-mindcore-accent/20 backdrop-blur-md"
+                        className="absolute top-full left-0 mt-2 w-[400px] py-3 px-4 rounded-lg shadow-lg bg-mindcore-dark/95 border border-mindcore-accent/20 backdrop-blur-md grid grid-cols-2 gap-2"
                       >
                         {link.dropdown?.map((item) => (
                           <a
                             key={item.name}
                             href={item.href}
-                            className="block py-1.5 text-sm text-mindcore-text-muted hover:text-mindcore-accent transition-colors"
+                            className="flex flex-col p-3 rounded-md hover:bg-mindcore-accent/10 transition-all group"
                           >
-                            {item.name}
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className={`p-1.5 rounded bg-gradient-to-br ${item.color} group-hover:scale-110 transition-transform`}>
+                                {item.icon}
+                              </div>
+                              <span className="font-medium text-mindcore-text">{item.name}</span>
+                            </div>
+                            <p className="text-xs text-mindcore-text-muted">
+                              {item.description}
+                            </p>
                           </a>
                         ))}
                       </motion.div>

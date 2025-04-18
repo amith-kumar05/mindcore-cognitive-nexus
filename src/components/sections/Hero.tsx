@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Brain } from 'lucide-react';
 import FloatingElements from '../ui/FloatingElements';
@@ -11,13 +10,35 @@ const Hero = () => {
       <div className="container relative z-10 px-4 md:px-6 mx-auto flex flex-col items-center">
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          animate={{ 
+            scale: 1, 
+            opacity: 1,
+            y: [0, -20, 0],
+          }}
+          transition={{ 
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
           className="mb-8"
         >
-          <div className="p-8 rounded-full bg-mindcore-accent/10 backdrop-blur-sm">
+          <motion.div 
+            className="p-8 rounded-full bg-mindcore-accent/10 backdrop-blur-sm"
+            animate={{
+              boxShadow: [
+                "0 0 20px rgba(0, 209, 255, 0.2)",
+                "0 0 40px rgba(0, 209, 255, 0.4)",
+                "0 0 20px rgba(0, 209, 255, 0.2)"
+              ]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
             <Brain className="w-20 h-20 text-mindcore-accent" />
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
