@@ -29,7 +29,6 @@ const Hero = () => {
   const [isCursorActive, setIsCursorActive] = useState(false);
   const terminalRef = useRef<HTMLInputElement>(null);
 
-  // Cursor blinking effect
   useEffect(() => {
     const interval = setInterval(() => {
       setIsCursorActive((prev) => !prev);
@@ -40,32 +39,29 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20">
-      {/* Background elements */}
-      <div className="grid-bg" />
-      <DataStream count={20} />
+      <div className="grid-bg animate-pulse-slow" />
+      <DataStream count={15} />
       
-      {/* Main content */}
       <div className="container relative z-10 px-4 md:px-6 mx-auto flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-6"
         >
-          <h1 className="font-orbitron text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-gradient text-shadow-lg">
+          <h1 className="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-mindcore-accent via-mindcore-accent2 to-mindcore-accent3 bg-clip-text text-transparent animate-text-glow">
             MindCore Labs
           </h1>
-          <p className="text-xl md:text-2xl font-light text-mindcore-text-muted max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl font-light text-mindcore-text/80 max-w-2xl mx-auto animate-fade-in">
             Where Thought Meets Computation
           </p>
         </motion.div>
 
-        {/* 3D Neural Network Visualization - Ensure only THREE objects inside Canvas */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full h-[400px] mb-8"
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          className="w-full h-[500px] mb-8 relative bg-gradient-radial from-mindcore-accent/5 via-transparent to-transparent rounded-xl overflow-hidden"
         >
           <Canvas>
             <ambientLight intensity={0.2} />
@@ -78,7 +74,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="w-full max-w-2xl mx-auto relative"
         >
           <div className="relative glowing-border rounded-md overflow-hidden">
@@ -125,25 +121,29 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6"
         >
-          <button className="neon-button flex items-center gap-2">
-            <Brain size={18} />
-            <span>Explore Our AI Suite</span>
+          <button className="neon-button group flex items-center gap-2 relative overflow-hidden">
+            <Brain className="text-mindcore-accent group-hover:animate-pulse" size={20} />
+            <span className="relative z-10">Explore Our AI Suite</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-mindcore-accent/20 via-mindcore-accent2/20 to-mindcore-accent/20 group-hover:animate-shimmer" />
           </button>
           
-          <a href="#about" className="text-mindcore-accent hover:text-mindcore-accent2 transition-colors text-sm underline underline-offset-4">
+          <a 
+            href="#about" 
+            className="text-mindcore-accent hover:text-mindcore-accent2 transition-all duration-300 text-sm underline-offset-4 hover:underline relative group"
+          >
             Learn about our mission
+            <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-mindcore-accent via-mindcore-accent2 to-mindcore-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
           </a>
         </motion.div>
       </div>
       
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.7 }}
-        transition={{ duration: 0.5, delay: 1, repeat: Infinity, repeatType: 'reverse' }}
+        transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <div className="flex flex-col items-center gap-2">

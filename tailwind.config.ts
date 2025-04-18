@@ -136,6 +136,22 @@ export default {
 				'terminal-typing': {
 					'0%': { width: '0%' },
 					'100%': { width: '100%' }
+				},
+				'shimmer': {
+					'0%': { transform: 'translateX(-100%)' },
+					'100%': { transform: 'translateX(100%)' }
+				},
+				'text-glow': {
+					'0%, 100%': {
+						'text-shadow': '0 0 20px rgba(0, 209, 255, 0.5), 0 0 40px rgba(0, 209, 255, 0.2)'
+					},
+					'50%': {
+						'text-shadow': '0 0 10px rgba(0, 209, 255, 0.3), 0 0 20px rgba(0, 209, 255, 0.1)'
+					}
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '0.4' },
+					'50%': { opacity: '0.2' }
 				}
 			},
 			animation: {
@@ -148,7 +164,10 @@ export default {
 				'rotate-slow': 'rotate-slow 20s linear infinite',
 				'scan-line': 'scan-line 3s linear infinite',
 				'background-pan': 'background-pan 3s linear infinite',
-				'terminal-typing': 'terminal-typing 3s steps(40, end)'
+				'terminal-typing': 'terminal-typing 3s steps(40, end)',
+				'shimmer': 'shimmer 2s infinite',
+				'text-glow': 'text-glow 3s ease-in-out infinite',
+				'pulse-slow': 'pulse-slow 4s ease-in-out infinite'
 			},
 			boxShadow: {
 				'neon': '0 0 5px theme(colors.mindcore.accent), 0 0 20px theme(colors.mindcore.accent)',

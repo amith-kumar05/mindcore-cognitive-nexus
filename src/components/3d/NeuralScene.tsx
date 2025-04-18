@@ -17,28 +17,24 @@ const Neuron: React.FC<NeuronProps> = ({ position, connections }) => {
   
   useFrame((state) => {
     if (sphereRef.current) {
-      // Subtle floating animation
-      sphereRef.current.position.y += Math.sin(state.clock.elapsedTime * 0.5) * 0.0005;
+      // More organic floating animation
+      sphereRef.current.position.y += Math.sin(state.clock.elapsedTime * 0.8) * 0.002;
+      sphereRef.current.position.x += Math.cos(state.clock.elapsedTime * 0.5) * 0.001;
       
-      // Pulsing effect when hovered
+      // Smoother hover effect
       if (hovered.current) {
-        sphereRef.current.scale.x = THREE.MathUtils.lerp(sphereRef.current.scale.x, 1.2, 0.1);
-        sphereRef.current.scale.y = THREE.MathUtils.lerp(sphereRef.current.scale.y, 1.2, 0.1);
-        sphereRef.current.scale.z = THREE.MathUtils.lerp(sphereRef.current.scale.z, 1.2, 0.1);
+        sphereRef.current.scale.lerp(new THREE.Vector3(1.4, 1.4, 1.4), 0.1);
       } else {
-        sphereRef.current.scale.x = THREE.MathUtils.lerp(sphereRef.current.scale.x, 1.0, 0.1);
-        sphereRef.current.scale.y = THREE.MathUtils.lerp(sphereRef.current.scale.y, 1.0, 0.1);
-        sphereRef.current.scale.z = THREE.MathUtils.lerp(sphereRef.current.scale.z, 1.0, 0.1);
+        sphereRef.current.scale.lerp(new THREE.Vector3(1.0, 1.0, 1.0), 0.1);
       }
     }
     
     if (linesMaterial.current) {
-      // Pulsing opacity for connection lines
-      linesMaterial.current.opacity = (Math.sin(state.clock.elapsedTime) + 1) / 2 * 0.4 + 0.3;
+      // Smoother connection pulse
+      linesMaterial.current.opacity = (Math.sin(state.clock.elapsedTime * 0.8) + 1) / 2 * 0.5 + 0.2;
     }
   });
 
-  // Create connection lines geometry
   const linesGeometry = new THREE.BufferGeometry();
   const linePositions: number[] = [];
   
@@ -57,13 +53,13 @@ const Neuron: React.FC<NeuronProps> = ({ position, connections }) => {
         onPointerOver={() => (hovered.current = true)}
         onPointerOut={() => (hovered.current = false)}
       >
-        <sphereGeometry args={[0.2, 16, 16]} />
+        <sphereGeometry args={[0.15, 24, 24]} />
         <meshStandardMaterial 
           color="#00D1FF" 
           emissive="#00D1FF"
-          emissiveIntensity={0.5}
-          roughness={0.3}
-          metalness={0.7}
+          emissiveIntensity={0.8}
+          roughness={0.2}
+          metalness={0.8}
         />
       </mesh>
       
@@ -80,45 +76,54 @@ const Neuron: React.FC<NeuronProps> = ({ position, connections }) => {
   );
 };
 
-interface NeuralNetworkProps {
-  neurons?: number;
-  connectionsPer?: number;
-}
-
-export const NeuralNetwork: React.FC<NeuralNetworkProps> = ({ 
-  neurons = 30, 
-  connectionsPer = 3
-}) => {
-  const { size, camera } = useThree();
+export const NeuralNetwork: React.FC = () => {
   const groupRef = useRef<THREE.Group>(null);
   const [ref, inView] = useInView({ threshold: 0.1 });
+  const { camera } = useThree();
   
   useEffect(() => {
-    camera.position.z = 15;
+    if (camera) {
+      camera.position.z = 12;
+      camera.position.y = 2;
+    }
   }, [camera]);
   
   useFrame((state) => {
     if (groupRef.current && inView) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.2;
+      // Smoother rotation
+      groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
     }
   });
-  
-  // Generate random neurons and connections
+
+  // Create brain-shaped neural network
   const neuronsData: Array<{ position: [number, number, number]; connections: Array<[number, number, number]> }> = [];
+  const brainRadius = 4;
+  const brainHeight = 5;
   
-  for (let i = 0; i < neurons; i++) {
+  // Generate neurons in a brain-like shape
+  for (let i = 0; i < 40; i++) {
+    const phi = Math.random() * Math.PI * 2;
+    const theta = Math.random() * Math.PI;
+    
+    // Brain shape equation
+    const x = brainRadius * Math.sin(theta) * Math.cos(phi);
+    const y = brainHeight * Math.cos(theta);
+    const z = brainRadius * Math.sin(theta) * Math.sin(phi);
+    
+    // Add some randomness to make it more organic
+    const jitter = 0.5;
     const position: [number, number, number] = [
-      (Math.random() - 0.5) * 10,
-      (Math.random() - 0.5) * 10,
-      (Math.random() - 0.5) * 10
+      x + (Math.random() - 0.5) * jitter,
+      y + (Math.random() - 0.5) * jitter,
+      z + (Math.random() - 0.5) * jitter
     ];
     
     const connections: Array<[number, number, number]> = [];
     
-    // Create random connections to other neurons
-    for (let j = 0; j < connectionsPer; j++) {
-      const targetIndex = Math.floor(Math.random() * neurons);
+    // Create connections to nearby neurons
+    for (let j = 0; j < 3; j++) {
+      const targetIndex = Math.floor(Math.random() * neuronsData.length);
       if (targetIndex < neuronsData.length) {
         connections.push(neuronsData[targetIndex].position);
       }
