@@ -128,7 +128,7 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="neon-button py-2 px-4 text-sm">
+            <button className="neon-button py-2 px-4 text-sm font-extrabold bg-cyan-900 hover:bg-cyan-800">
               Get Started
             </button>
           </div>
