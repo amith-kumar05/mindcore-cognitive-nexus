@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Brain, ChevronDown, Brain, Terminal, Database, MessageSquare, Mic, Heart } from 'lucide-react';
+import { Menu, X, Brain, ChevronDown, Terminal, Database, MessageSquare, Mic, Heart } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '#', hasDropdown: false },
