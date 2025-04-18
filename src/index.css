@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '@fontsource/orbitron';
+@import '@fontsource/inter';
 
 @layer base {
   :root {
@@ -35,53 +37,48 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+  /* Always use dark mode for MindCore */
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 213 31% 91%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 4%;
+    --card-foreground: 213 31% 91%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 213 31% 91%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 194 100% 50%; /* Cyan color */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 270 70% 65%; /* Violet color */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 194 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
@@ -92,10 +89,126 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border selection:bg-mindcore-accent/20 selection:text-mindcore-text;
+  }
+
+  html {
+    @apply scroll-smooth h-full;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-mindcore-darker text-mindcore-text font-inter antialiased h-full overflow-x-hidden;
+    background-image: radial-gradient(circle at 50% 50%, theme("colors.mindcore.dark") 0%, theme("colors.mindcore.darker") 100%);
+    background-attachment: fixed;
+  }
+
+  #root {
+    @apply min-h-full w-full max-w-full m-0 p-0;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-mindcore-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-mindcore-accent/30 rounded-full hover:bg-mindcore-accent/50;
+  }
+}
+
+@layer components {
+  .glowing-border {
+    @apply relative border border-transparent;
+  }
+
+  .glowing-border::before {
+    content: '';
+    @apply absolute -inset-0.5 rounded-md bg-gradient-glow opacity-75 blur-sm animate-background-pan;
+    background-size: 200%;
+    z-index: -1;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-mindcore-accent via-mindcore-accent2 to-mindcore-accent animate-background-pan;
+    background-size: 200%;
+  }
+
+  .terminal-input {
+    @apply bg-mindcore-terminal/80 border border-mindcore-accent/30 rounded-md px-4 py-3 text-mindcore-text font-mono placeholder:text-mindcore-text-muted focus:outline-none focus:ring-2 focus:ring-mindcore-accent/50 transition-all;
+  }
+
+  .neon-button {
+    @apply relative overflow-hidden px-8 py-3 rounded-md bg-mindcore-secondary font-orbitron text-mindcore-text transition-all duration-300;
+  }
+
+  .neon-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-mindcore-accent/60 via-mindcore-accent2/60 to-mindcore-accent/60 opacity-0 transition-opacity duration-300;
+  }
+
+  .neon-button:hover::before {
+    @apply opacity-100;
+  }
+
+  .neon-button:hover {
+    @apply shadow-neon text-white;
+  }
+
+  .grid-bg {
+    @apply absolute inset-0 w-full;
+    background-image: linear-gradient(rgba(123, 77, 255, 0.05) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(123, 77, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center center;
+    transform-origin: center;
+    transform: perspective(1000px) rotateX(80deg) translateY(10%) scale(2);
+    opacity: 0.4;
+    z-index: -1;
+  }
+
+  .product-card {
+    @apply relative flex flex-col justify-between p-6 rounded-lg bg-mindcore-secondary/30 backdrop-blur-sm border border-mindcore-accent/10 shadow-card overflow-hidden transition-all duration-500 h-full;
+  }
+
+  .product-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-mindcore-accent/10 via-transparent to-mindcore-accent2/10 opacity-0 transition-opacity duration-500;
+  }
+
+  .product-card:hover {
+    @apply border-mindcore-accent/30 -translate-y-1;
+  }
+
+  .product-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .blog-card {
+    @apply relative flex flex-col justify-between p-6 rounded-lg bg-mindcore-secondary/20 backdrop-blur-sm border border-mindcore-accent/10 overflow-hidden transition-all duration-300 h-full;
+  }
+
+  .blog-card:hover {
+    @apply border-mindcore-accent/30 shadow-neon;
+  }
+
+  .glass-panel {
+    @apply bg-mindcore-secondary/10 backdrop-blur-md border border-white/5;
+  }
+
+  .data-stream {
+    @apply absolute w-0.5 bg-gradient-to-b from-mindcore-accent via-mindcore-accent2 to-transparent opacity-40 animate-data-flow;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 0 15px rgba(0, 209, 255, 0.7), 0 0 30px rgba(0, 209, 255, 0.4);
   }
 }
